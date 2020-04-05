@@ -95,7 +95,9 @@ export const NavBar : React.FC<{}> = (props) => {
           )}
         </>
       </nav>
-      {props.children}
+      <div className='container w-full mx-auto'>
+        {props.children}
+      </div>
     </>
   )
 }
