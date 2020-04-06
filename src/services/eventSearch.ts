@@ -12,7 +12,7 @@ export interface EventSearchRequest {
 }
 
 export const eventSearch = async(searchRequest: EventSearchRequest) => {
-    const response = await fetch(apiUrl, {
+    const response = await fetch(`${apiUrl}/search/events`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'same-origin',

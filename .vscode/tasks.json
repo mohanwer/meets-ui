@@ -7,6 +7,11 @@
       "label": "yarn",
       "type": "shell",
       "command": "yarn start",
+    },
+    {
+      "label": "firefox debug",
+      "type": "shell",
+      "command": "firefox -start-debugger-server"
     }
   ]
 }

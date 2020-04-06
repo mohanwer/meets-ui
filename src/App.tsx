@@ -7,6 +7,7 @@ import './App.css'
 import {configureStore} from "./store/store"
 import {Home} from './Home'
 import {General} from "./General"
+import {Event} from './pages/Event'
 import {Auth0Provider} from './auth/react-auth0-spa'
 import {ProtectedRoute} from './auth/ProtectedRoute'
 import { RedirectLoginResult } from '@auth0/auth0-spa-js'
@@ -22,9 +23,7 @@ if (
   auth0Domain === undefined
   || auth0ClientId === undefined
   || auth0Audience === undefined
-) {
-  throw new Error('missing env vars')
-}
+) throw new Error('missing env vars')
 
 const history = createBrowserHistory();
 const store = configureStore(history, {});
@@ -54,6 +53,7 @@ const App: React.FC = () => {
             <NavBar>
               <Switch>
                 <Route component={Home} path={'/Home'}/>
+                <Route component={Event} path={'/Event'}/>
                 <ProtectedRoute component={General} path={'/General'}/>
               </Switch>
             </NavBar>

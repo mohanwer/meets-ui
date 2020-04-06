@@ -5,13 +5,23 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch localhost",
       "type": "firefox",
       "request": "launch",
       "reAttach": true,
-      "preLaunchTask": "yarn",
-      "url": "http://localhost:3000",
+      "firefoxArgs": ["--start-debugger-server 6000"],
+      "name": "Launch localhost",
+      "url": "http://localhost:3000/home",
       "webRoot": "${workspaceFolder}/src"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "runtimeArgs": ["--remote-debugging-port=9222"],
+      "sourceMaps": true,
+      "smartStep": true,
+      "name": "Launch Chrome",
+      "url": "http://localhost:3000/",
+      "webRoot": "${workspaceFolder}"
     },
   ]
 }
