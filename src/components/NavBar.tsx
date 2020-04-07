@@ -61,7 +61,7 @@ export const NavBar : React.FC<{}> = (props) => {
       <nav className="flex items-center justify-between flex-wrap bg-red-900 p-2">
         <div className="flex items-center flex-shrink-0 text-white mr-6 ">
           <span className="font-semibold text-xl italic tracking-tight">
-            Boilerplate
+            Meets
           </span>
         </div>
         <>
@@ -95,7 +95,7 @@ export const NavBar : React.FC<{}> = (props) => {
           )}
         </>
       </nav>
-      <div className='container w-full mx-auto'>
+      <div className=''>
         {props.children}
       </div>
     </>

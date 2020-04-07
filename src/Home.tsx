@@ -1,11 +1,13 @@
 import React from "react"
-import { eventSearch } from './services/eventSearch';
+import { eventSearch, ElasticSearchResult } from './services/eventSearch';
 import {useEffect, useState} from 'react';
 import { EventCardGrid } from "./components/event/EventCardGrid";
 
+
 export const Home = () => { 
+  const initialEvents: ElasticSearchResult[] =  []
   const [isLoading, setLoading] = useState(true)
-  const [eventsNearby, setEventsNearby] = useState([])
+  const [eventsNearby, setEventsNearby] = useState(initialEvents)
 
   useEffect(() => {
     const fetchEvents = async() => {

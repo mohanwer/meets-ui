@@ -10,10 +10,8 @@ export const EventCardGrid = (props: EventCardsProps) => {
     <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
       {props.cardList.map(card => 
         <EventCard 
-          key={card.name}
-          briefDescription={card.briefDescription} 
-          name={card.name} 
-          eventDate={card.eventDate} 
+          key={card.id}
+          {...card}
         />
       )}
     </div>
