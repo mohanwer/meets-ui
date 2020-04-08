@@ -18,6 +18,9 @@ export const GET_EVENT_BY_ID = gql`
         lng
       }
       comments {
+        id
+        commentText
+        modified
         createdBy {
           id
           displayName
