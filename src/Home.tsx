@@ -6,15 +6,12 @@ import { EventCardGrid } from "./components/event/EventCardGrid";
 
 export const Home = () => { 
   const initialEvents: ElasticSearchResult[] =  []
-  const [isLoading, setLoading] = useState(true)
   const [eventsNearby, setEventsNearby] = useState(initialEvents)
 
   useEffect(() => {
     const fetchEvents = async() => {
-      setLoading(true)
       const response = await eventSearch({})
       setEventsNearby(response)
-      setLoading(false)
     }
     fetchEvents()
   }, [])

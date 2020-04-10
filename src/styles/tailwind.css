@@ -2,4 +2,16 @@
 
 @tailwind components;
 
+.btn {
+  @apply inline-block bg-indigo-500 text-sm text-white uppercase tracking-wider font-semibold;
+}
+
+.btn-gray {
+  @apply text-sm text-white bg-gray-600 font-bold p-1 mt-2;
+}
+
+.btn-gray:hover {
+  @apply bg-gray-500 text-black;
+}
+
 @tailwind utilities;

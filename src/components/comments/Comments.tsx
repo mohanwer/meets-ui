@@ -1,8 +1,9 @@
 import React from 'react'
-import { Comment, CommentProps } from './comment';
+import { Comment, CommentProps } from './Comment';
 
 interface CommentsProps {
   comments: CommentProps[]
+  eventId: string
 }
 
 export const Comments = (props: CommentsProps) => {

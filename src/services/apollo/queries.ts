@@ -34,3 +34,16 @@ export const GET_EVENT_BY_ID = gql`
   }
 `
 
+export const ADD_EVENT_COMMENT = gql`
+  mutation AddEventComment($eventId: String!, $commentText: String!) {
+    addEventComment(eventId: $eventId, commentText: $commentText) {
+      id
+      commentText
+      modified
+      createdBy {
+        id
+        displayName
+      }
+    }
+  }
+`
