@@ -1,13 +1,14 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { GET_EVENT_BY_ID, ADD_EVENT_COMMENT } from '../services/apollo/queries';
-import { Event as EventType, EventComment } from '../services/apollo/interfaces';
+import { GET_EVENT_BY_ID, ADD_EVENT_COMMENT } from '../../../services/apollo/queries';
+import { Event as EventType, EventComment } from '../../../services/apollo/interfaces';
 import GoogleMapReact from 'google-map-react'
-import { Marker } from '../components/map/Marker';
-import { Comments } from '../components/comments/Comments';
-import { CommentProps } from '../components/comments/Comment';
-import { CreateCommentTextBox } from '../components/comments/CreateCommentTextBox';
+import { Marker } from './Map/Marker';
+import { Comments } from './Comments/Comments';
+import { CommentProps } from './Comments/Comment';
+import { CreateCommentTextBox } from './Comments/CreateCommentTextBox';
+
 const useUrlQuery = () => new URLSearchParams(useLocation().search)
 
 export const MapMarker = ({text}: any) => <div>{text}</div>
@@ -27,11 +28,11 @@ export const mapCommentToCommentProps = (commentList: EventComment[] | null | un
       createdBy: {
         id: c.createdBy.id,
         displayName: c.createdBy.displayName
-    }
-  }))
+      }
+    }))
 
-export const Event = () => {
-  
+export const ViewEvent = () => {
+  const history = useHistory()
   const urlQuery = useUrlQuery()
   const eventId = urlQuery.get('id')
 
@@ -39,7 +40,7 @@ export const Event = () => {
     variables: {id: eventId}
   })
 
-  const [addCommentToEvent] = useMutation<EventComment>(
+  const [addCommentToEvent] = useMutation<{addCommentToEvent: EventComment}>(
     ADD_EVENT_COMMENT,
     {
       update(cache, {data: {addCommentToEvent}}) {
@@ -71,15 +72,18 @@ export const Event = () => {
         <div className='text-lg text-gray-700 italic'>{formattedEventDate}</div>
       </div>
       <div className="p-4">
+        <button
+          className='btn-gray mb-2'
+          onClick={()=> history.push(`/EditEvent?id=${eventId}`)}
+        >Edit Event</button>
         <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4">
           <div className='bg-white shadow-sm p-2'>
             <div className='text-xl font-bold'>Details</div>
             <p>{event.longDescription}</p>
-            
           </div>
           <div className='h-56 shadow-sm rounded-lg'>
             <GoogleMapReact
-              bootstrapURLKeys={{key: 'AIzaSyAKtW-Qwq1_FLWtNApheCngp4xMFTSa7E4'}}
+              bootstrapURLKeys={{key: process.env.REACT_APP_GOOGLE_MAPS_API_URL || 'missing'}}
               center={{lat: event.address.lat, lng:event.address.lng}}
               zoom={15}
             >

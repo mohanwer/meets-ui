@@ -39,6 +39,9 @@ export const NavBar : React.FC<{}> = (props) => {
         <Link to='Home' href="#responsive-header" className={linkBtnClass}>
           Home
         </Link>
+        <Link to='CreateEvent' href="#responseive-header" className={linkBtnClass}>
+          Create New Event
+        </Link>
       </div>
       <div className="float-right">
         {authBtn}

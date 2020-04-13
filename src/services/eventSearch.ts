@@ -1,4 +1,4 @@
-export const apiUrl = process.env.API_URL || 'http://localhost:5000'
+export const apiUrl = process.env.REACT_APP_API_URL
 
 export const eventSearch = async (searchRequest: EventSearchRequest): Promise<ElasticSearchResult[]> => {
   const response = await fetch(`${apiUrl}/search/events`, {

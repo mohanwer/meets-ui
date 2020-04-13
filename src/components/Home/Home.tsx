@@ -1,7 +1,6 @@
-import React from "react"
-import { eventSearch, ElasticSearchResult } from './services/eventSearch';
-import {useEffect, useState} from 'react';
-import { EventCardGrid } from "./components/event/EventCardGrid";
+import React,  {useEffect, useState} from "react"
+import { eventSearch, ElasticSearchResult } from '../../services/eventSearch'
+import { EventCardGrid } from "./EventCardGrid"
 
 
 export const Home = () => { 
