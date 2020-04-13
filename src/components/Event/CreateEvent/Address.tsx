@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { GoogleAddress } from '../../CreateEvent/interfaces';
+import { GoogleAddress } from './interfaces';
 
 interface AddressProps {
   addressChange: (place: GoogleAddress) => void,

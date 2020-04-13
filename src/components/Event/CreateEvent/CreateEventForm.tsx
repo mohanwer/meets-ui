@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormikProps, Field, Form, withFormik, FormikErrors } from 'formik'
-import { Address } from '../ViewEvent/Map/Address'
+import { Address } from './Address'
 import { GoogleAddress, EventData } from './interfaces'
 import { EventValues } from './interfaces'
 
