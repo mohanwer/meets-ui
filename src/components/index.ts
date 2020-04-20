@@ -1,6 +1,6 @@
-import {Home} from './Home/Home'
-import { ViewEvent } from './Event/ViewEvent/ViewEvent';
-import { CreateEvent } from './Event/CreateEvent/CreateEvent';
-import { EditEvent } from './Event/EditEvent/EditEvent';
+import {Home} from './home/Home'
+import { ViewEvent } from './event/view-event/ViewEvent';
+import { CreateEvent } from './event/create-event/CreateEvent';
+import { EditEvent } from './event/edit-event/EditEvent';
 
 export {Home, ViewEvent, CreateEvent, EditEvent}

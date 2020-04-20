@@ -45,6 +45,7 @@ export const CreateEventForm = ({onSubmit}: {onSubmit: (eventInfo: EventData) =>
         city: '',
         state: '',
         postal: '',
+        country: ''
       }
     }
   })(EventFormFields)
@@ -66,9 +67,6 @@ export const EventFormFields = (props: FormikProps<EventValues>) => {
   return (
     <div className="w-full p-6 lg:mt-0 rounded shadow bg-white">
       <Form>
-        <div className="border-b p3 mb-4">
-          <h5 className='fold-bold uppercase text-gray-600'>Create an event</h5>
-        </div>
         <div className='md:flex mb-6'>
           <div className="md:w-1/3">
             <label className='form-label'>Name of your event</label>
@@ -78,6 +76,7 @@ export const EventFormFields = (props: FormikProps<EventValues>) => {
             {touched.name && errors.name && <div className='form-error'>{errors.name}</div>}
           </div>
         </div>
+        
         <div className='md:flex mb-6'>
           <div className="md:w-1/3">
             <label className='form-label'>Brief description to display</label>
@@ -97,24 +96,35 @@ export const EventFormFields = (props: FormikProps<EventValues>) => {
             {touched.longDescription && errors.longDescription && <div className='form-error'>{errors.longDescription}</div>}
           </div>
         </div>
+
+        <div className='md:flex mb-6'>
+          <div className='md:w-1/3'>
+            <label className='form-label'>Search for an address:</label>
+          </div>
+          <div className='md:w-2/3'>
+            <Address
+              className='form-text-input border'
+              addressChange={(place) => setAddress(place)}
+            />
+          </div>
+        </div>
+
         <div className='md:flex mb-6'>
           <div className="md:w-1/4">
             <label className='form-label'>Street Address</label>
           </div>
           <div className="md:w-1/4">
-            <Address
-              className='form-text-input border'
-              addressChange={(place) => setAddress(place)}
-            />
+            <Field type='text' name='address1' className='form-text-input border'/>
             {touched.address1 && errors.address1 && <div className='form-error'>{errors.address1}</div>}
           </div>
           <div className="md:w-1/4">
-            <label className='form-label'>Apt / Suite / Other</label>
+            <label className='form-label md:float-right'>Apt / Suite / Other</label>
           </div>
           <div className="md:w-1/4">
             <Field type='text' name='address2' className='form-text-input border'/>
           </div>
         </div>
+
         <div className='md:flex mb-6'>
           <div className="md:w-1/4">
             <label className='form-label'>City</label>
@@ -124,13 +134,14 @@ export const EventFormFields = (props: FormikProps<EventValues>) => {
             {touched.city && errors.city && <div className='form-error'>{errors.city}</div>}
           </div>
           <div className="md:w-1/4">
-            <label className='form-label'>State</label>
+            <label className='form-label md:float-right'>State</label>
           </div>
           <div className="md:w-1/4">
             <Field type='text' name='state' className='form-text-input border'/>
             {touched.state && errors.state && <div className='form-error'>{errors.state}</div>}
           </div>
         </div>
+
         <div className='md:flex mb-6'>
           <div className="md:w-1/4">
             <label className='form-label'>Zip</label>
@@ -140,6 +151,7 @@ export const EventFormFields = (props: FormikProps<EventValues>) => {
             {touched.postal && errors.postal && <div className='form-error'>{errors.postal}</div>}
           </div>
         </div>
+
         <button type="submit" className='btn-gray' disabled={isSubmitting}>
           Submit
         </button>

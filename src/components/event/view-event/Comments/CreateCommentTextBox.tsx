@@ -14,7 +14,7 @@ export const CreateCommentTextBox = ({onSubmit}: CreateCommentTextBoxProps) => {
 
   return (
     <>
-      <div className='shadow-sm'>
+      <div className='shadow'>
         <textarea 
           className='w-full p-2'
           onChange={e => onInputChange(e)}

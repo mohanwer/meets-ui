@@ -7,7 +7,7 @@ export interface EventCardsProps {
 
 export const EventCardGrid = (props: EventCardsProps) => {
   return (
-    <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+    <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
       {props.cardList.map(card => 
         <EventCard 
           key={card.id}

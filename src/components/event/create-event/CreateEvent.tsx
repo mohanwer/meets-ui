@@ -24,7 +24,19 @@ export const CreateEvent = () => {
 
   if (eventCreationStatus.eventCreationComplete)
     return <Redirect to={`/Event?id=${eventCreationStatus.eventId}`} />
-  if (isGoogleDoneLoading)
-    return (<CreateEventForm onSubmit={submitNewEvent}/>)
-  else return (<div>Loading...</div>)
+  if (!isGoogleDoneLoading)
+    return <div>Loading...</div> 
+    
+  return (
+    <div className='bg-gray-100'>
+      <div className='border-b-2 bg-white shadow text-center'>
+        <div className='text-3xl ml-4'>Create an Event</div>
+      </div>
+      <div className='p-4'>
+        <CreateEventForm 
+          onSubmit={submitNewEvent}
+        />
+      </div>
+    </div>
+  )
 }

@@ -9,6 +9,7 @@ const EventPageFragment = gql`
     eventDate
     address {
       addr1
+      addr2
       city
       state
       postal
@@ -55,6 +56,26 @@ export const ADD_EVENT_COMMENT = gql`
   }
 `
 
+export const UPDATE_EVENT_COMMENT = gql`
+  mutation UpdateEventComment($eventId: String!, $commentId: String!, $commentText: String!) {
+    updateEventComment(eventId: $eventId, commentId: $commentId, commentText: $commentText) {
+      id
+      commentText
+      modified
+      createdBy {
+        id
+        displayName
+      }
+    }
+  }
+`
+
+export const DELETE_EVENT_COMMENT = gql`
+  mutation DeleteEventComment($eventCommentId: String!) {
+    deleteEventComment(eventCommentId: $eventCommentId)
+  }
+`
+
 export const ADD_EVENT = gql`
   mutation AddEvent($eventData: EventInput!) {
     addEvent(eventData: $eventData) {
@@ -69,6 +90,6 @@ export const UPDATE_EVENT = gql`
     updateEvent(eventData: $eventData) {
       ...EventPage
     }
-    ${EventPageFragment}
   }
+  ${EventPageFragment}
 `

@@ -69,7 +69,7 @@ export const NavBar : React.FC<{}> = (props) => {
         </div>
         <>
           {width > TailwindMedia.sm ? (
-            <div className="w-full sm:flex-grow sm:flex sm:items-center sm:w-auto">
+            <div className="sm:flex-grow sm:flex sm:items-center sm:w-auto">
               {links}
             </div>
           ) : (
@@ -98,7 +98,7 @@ export const NavBar : React.FC<{}> = (props) => {
           )}
         </>
       </nav>
-      <div className=''>
+      <div className='flex justify-center bg-gray-100'>
         {props.children}
       </div>
     </>

@@ -21,6 +21,7 @@ export interface EventValues {
   city: string,
   state: string,
   postal: string,
+  country: string,
   geoLocation?: GoogleGeoCode,
 }
 

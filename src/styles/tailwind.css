@@ -7,7 +7,7 @@
 }
 
 .btn-gray {
-  @apply text-sm text-white bg-gray-600 font-bold p-1 mt-2;
+  @apply text-sm text-white bg-gray-600 font-bold rounded p-1 mt-2 shadow;
 }
 
 .btn-gray:hover {
@@ -15,7 +15,7 @@
 }
 
 .form-label {
-  @apply block text-gray-600 font-bold text-left mb-3 mx-3 mb-0 pr-4 uppercase;
+  @apply block font-bold text-left mb-3 mx-3 mb-0 pr-4 uppercase;
 }
 
 .form-sub-text {

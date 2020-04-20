@@ -2,7 +2,7 @@ import React from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { GET_EVENT_BY_ID, UPDATE_EVENT } from '../../../services/apollo/queries';
-import { EventData } from '../CreateEvent/interfaces';
+import { EventData } from '../create-event/interfaces';
 import { EditEventForm } from './EditEventForm';
 import { Event } from '../../../services/apollo/interfaces';
 
@@ -13,7 +13,7 @@ export const EditEvent = () => {
   const urlQuery = useUrlQuery()
   const eventId = urlQuery.get('id')
 
-  const { loading, error, data, refetch } = useQuery<Event>(GET_EVENT_BY_ID, { variables: {id: eventId} })
+  const { loading, data } = useQuery<{event: Event}>(GET_EVENT_BY_ID, { variables: {id: eventId} })
 
   const [updateEvent] = useMutation<{updateEvent: Event}>(
     UPDATE_EVENT, 
@@ -29,16 +29,17 @@ export const EditEvent = () => {
     }
   )
 
-  const submitUpdatedEvent = async(updatedEventDetails: EventData) =>
+  const submitUpdatedEvent = async(updatedEventDetails: EventData) => {
+    Object.assign(updatedEventDetails, {id: eventId})
     updateEvent({variables: {eventData: updatedEventDetails}})
+  }
 
   if (loading) return <div>Loading...</div>
-  if (error) return <div>{`Error! ${error}`}</div>
   if (!data) return <div>Event not found</div>
 
   return (
     <EditEventForm 
-      initialValues={data}
+      initialValues={data.event}
       onSubmit={(updatedInfo) => submitUpdatedEvent(updatedInfo)}
     />
   )

@@ -16,7 +16,7 @@ export const Home = () => {
   }, [])
 
   return(
-    <div>
+    <div className=''>
       <div className="px-8 pt-2 flex flex-col justify-center">
         <div className="text-center pb-2">
           <h2>
