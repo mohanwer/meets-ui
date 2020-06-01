@@ -93,3 +93,27 @@ export const UPDATE_EVENT = gql`
   }
   ${EventPageFragment}
 `
+
+export const SEARCH_EVENTS = gql`
+  query SearchEvents($eventSearchRequest: EventSearchRequest!) {
+    searchEvents(searchParams: $eventSearchRequest) {
+      id
+      name
+      addr1
+      addr2
+      briefDescription
+      longDescription
+      eventDate
+      userId
+      displayName
+      city
+      state
+      postal
+      country
+      location {
+        lat
+        lon
+      }
+    }
+  }
+`

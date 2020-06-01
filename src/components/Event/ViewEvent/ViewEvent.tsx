@@ -6,7 +6,7 @@ import { GET_EVENT_BY_ID, ADD_EVENT_COMMENT, UPDATE_EVENT_COMMENT, DELETE_EVENT_
 import { Event as EventType, EventComment } from '../../../services/apollo/interfaces';
 import { Marker } from './Map/Marker';
 import { Comments } from './Comments/Comments';
-import { CommentProps } from './Comments/Comment';
+import { CommentProps, UpdateComment } from './Comments/Comment';
 import { CreateCommentTextBox } from './Comments/CreateCommentTextBox';
 import { ProtectedWrapper } from '../../../auth/ProtectedWrapper';
 
@@ -14,7 +14,7 @@ const useUrlQuery = () => new URLSearchParams(useLocation().search)
 
 export const MapMarker = ({text}: any) => <div>{text}</div>
 
-export const formatDate = (dateToFormat: string): string => {
+export const formatDate = (dateToFormat: Date): string => {
   const date = new Date(dateToFormat)
   const formattedDate = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()} @ ${date.getUTCHours()}:${date.getMinutes()}`
   return formattedDate
@@ -24,7 +24,7 @@ export const mapCommentToCommentProps = (
   commentList: EventComment[] | null | undefined, 
   updateComment: (commentId: string, commentText: string) => Promise<any>,
   deleteComment: (commentId: string) => Promise<any>
-): CommentProps[] | undefined =>
+): CommentProps[] | [] | undefined =>
   commentList?.map(c => (
     {
       id: c.id,
@@ -50,7 +50,7 @@ export const ViewEvent = () => {
   const [addCommentToEvent] = useMutation<{addCommentToEvent: EventComment}>(
     ADD_EVENT_COMMENT,
     {
-      update(cache, {data: {addCommentToEvent}}) {
+      update(cache) {
         const commentToAdd = arguments[1].data.addEventComment
         const {event}: any = cache.readQuery<EventType>({query: GET_EVENT_BY_ID, variables: { id: eventId } })
         event.comments.push(commentToAdd)
@@ -66,7 +66,7 @@ export const ViewEvent = () => {
   const [updateCommentInEvent] = useMutation<{updateComment: EventComment}>(
     UPDATE_EVENT_COMMENT,
     {
-      update(cache, {data: {updateCommentInEvent}}) {
+      update(cache) {
         const updateEventComment = arguments[1].data.updateEventComment
         const {event}: any = cache.readQuery({query: GET_EVENT_BY_ID, variables: { id: eventId } })
         const commentIdx = event.comments.findIndex((c: EventComment) => c.id === updateEventComment.id)

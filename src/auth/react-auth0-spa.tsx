@@ -62,9 +62,12 @@ export const Auth0Provider = ({
 
       if (authed) {
         const userProfile = await auth0FromHook.getUser()
-
+        console.log(userProfile)
         setIsAuthenticated(true)
         setUser(userProfile)
+        const token = await auth0FromHook.getTokenSilently()
+        if (token)
+          localStorage.setItem('token', token)
       }
 
       setIsInitializing(false)
@@ -98,7 +101,7 @@ export const Auth0Provider = ({
     setIsInitializing(false)
     setIsAuthenticated(true)
     setUser(userProfile)
-
+    
     return result
   }
 
@@ -108,8 +111,11 @@ export const Auth0Provider = ({
   const getTokenSilently = (options?: GetTokenSilentlyOptions) =>
     auth0Client!.getTokenSilently(options)
 
-  const logout = (options?: LogoutOptions) =>
+  const logout = (options?: LogoutOptions) => {
     auth0Client!.logout(options)
+    localStorage.removeItem('token')
+  }
+    
 
   const getIdTokenClaims = (options?: getIdTokenClaimsOptions) =>
     auth0Client!.getIdTokenClaims(options)

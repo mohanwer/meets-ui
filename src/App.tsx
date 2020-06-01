@@ -6,13 +6,13 @@ import {Route, Switch} from "react-router"
 import {configureStore} from "./store/store"
 import {General} from "./General"
 import {ViewEvent, CreateEvent, EditEvent, Home} from './components'
-import {Auth0Provider} from './auth/react-auth0-spa'
+import { Auth0Provider } from './auth/react-auth0-spa';
 import {ProtectedRoute} from './auth/ProtectedRoute'
 import { RedirectLoginResult } from '@auth0/auth0-spa-js'
 import { NavBar } from './components/NavBar'
 import './styles/index.css'
 import './App.css'
-
+import { client } from './services/apollo/client';
 
 const auth0Domain = process.env.REACT_APP_AUTH0_DOMAIN
 const auth0ClientId = process.env.REACT_APP_AUTH0_CLIENT_ID
@@ -40,7 +40,7 @@ const onAuthRedirectCallback = (redirectResult?: RedirectLoginResult) => {
 }
 
 const App: React.FC = () => {
-
+  
   // Load google api script when the application is first loaded.
   // This is important for form auto completion.
   useEffect(() => {

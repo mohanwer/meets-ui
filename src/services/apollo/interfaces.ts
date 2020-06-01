@@ -80,6 +80,44 @@ export type EventUpdateInput = {
   id: Scalars['String'],
 };
 
+export type EventSearchRequest = {
+  eventName?: Maybe<Scalars['String']>;
+  postal?: Maybe<Scalars['String']>;
+  location?: Maybe<LocationRequest>;
+  from?: Maybe<Scalars['Float']>;
+  size?: Maybe<Scalars['Float']>;
+};
+
+export type EventSearchResponse = {
+  __typename?: 'EventSearchResponse';
+  id: Scalars['String'];
+  name: Scalars['String'];
+  addr1: Scalars['String'];
+  addr2?: Maybe<Scalars['String']>;
+  briefDescription: Scalars['String'];
+  longDescription: Scalars['String'];
+  eventDate: Scalars['DateTime'];
+  userId: Scalars['String'];
+  displayName: Scalars['String'];
+  city: Scalars['String'];
+  state: Scalars['String'];
+  postal?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  location?: Maybe<LocationResponse>;
+};
+
+export type LocationRequest = {
+  lat?: Maybe<Scalars['Float']>;
+  lng?: Maybe<Scalars['Float']>;
+  distance?: Maybe<Scalars['String']>;
+};
+
+export type LocationResponse = {
+  __typename?: 'LocationResponse';
+  lat: Scalars['Float'];
+  lon: Scalars['Float'];
+};
+
 export type Group = {
    __typename?: 'Group',
   id: Scalars['ID'],

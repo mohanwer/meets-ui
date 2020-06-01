@@ -2,7 +2,7 @@ import React from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { GET_EVENT_BY_ID, UPDATE_EVENT } from '../../../services/apollo/queries';
-import { EventData } from '../create-event/interfaces';
+import { EventData } from '../CreateEvent/interfaces';
 import { EditEventForm } from './EditEventForm';
 import { Event } from '../../../services/apollo/interfaces';
 

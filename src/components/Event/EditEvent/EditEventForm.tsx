@@ -1,8 +1,8 @@
 import React from 'react'
 import { FormikErrors, Formik, FormikProps } from 'formik';
 import { Event } from '../../../services/apollo/interfaces'
-import { EventValues, EventData } from '../create-event/interfaces';
-import { EventFormFields } from '../create-event/CreateEventForm';
+import { EventValues, EventData } from '../CreateEvent/interfaces';
+import { EventFormFields } from '../CreateEvent/CreateEventForm';
 
 export interface EditEventFormProps  {
   initialValues: Event
