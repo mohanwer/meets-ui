@@ -5,6 +5,9 @@ import createAuth0Client, {
   IdToken, Auth0ClientOptions, LogoutOptions, PopupLoginOptions 
 } from '@auth0/auth0-spa-js'
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client'
+import { useMutation } from '@apollo/react-hooks';
+import { User } from '../services/apollo/interfaces';
+import { UPDATE_USER } from '../services/apollo/queries';
 
 export interface Auth0RedirectState {
   targetUrl?: string
@@ -43,6 +46,8 @@ export const Auth0Provider = ({
   const [user, setUser] = useState<Auth0User>()
   const [auth0Client, setAuth0Client] = useState<Auth0Client>()
 
+  const [updateUser] = useMutation<{updateUser: User}>(UPDATE_USER)
+
   useEffect(() => {
     const initAuth0 = async () => {
       const auth0FromHook = await createAuth0Client(initOptions)
@@ -66,8 +71,13 @@ export const Auth0Provider = ({
         setIsAuthenticated(true)
         setUser(userProfile)
         const token = await auth0FromHook.getTokenSilently()
-        if (token)
+        if (token) {
           localStorage.setItem('token', token)
+          const { name, email } = userProfile
+          const variables = {email: email, displayName: name}
+          const context = {headers: { authorization: `bearer ${token}`}}
+          updateUser({variables: variables, context: context})
+        }
       }
 
       setIsInitializing(false)

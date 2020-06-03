@@ -39,9 +39,6 @@ export const NavBar : React.FC<{}> = (props) => {
   let links = (
     <>
       <div className="text-sm flex-grow">
-        <Link to='General' href="#responsive-header" className={linkBtnClass}>
-          Protected Route
-        </Link>
         <Link to='Home' href="#responsive-header" className={linkBtnClass}>
           Home
         </Link>
@@ -67,10 +64,10 @@ export const NavBar : React.FC<{}> = (props) => {
   
   return (
     <>
-      <nav className="flex items-center justify-between flex-wrap bg-red-900 p-2">
+      <nav className="flex items-center justify-between flex-wrap bg-blue-900 p-2">
         <div className="flex items-center flex-shrink-0 text-white mr-6 ">
           <span className="font-semibold text-xl italic tracking-tight">
-            Meets
+            Assemble Anywhere
           </span>
         </div>
         <>
@@ -104,7 +101,7 @@ export const NavBar : React.FC<{}> = (props) => {
           )}
         </>
       </nav>
-      <div className='flex justify-center bg-gray-100'>
+      <div className='flex justify-center bg-gray-100 bg-cover'>
         {props.children}
       </div>
     </>

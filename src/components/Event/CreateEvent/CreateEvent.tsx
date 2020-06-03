@@ -28,11 +28,11 @@ export const CreateEvent = () => {
     return <div>Loading...</div> 
     
   return (
-    <div className='bg-gray-100'>
-      <div className='border-b-2 bg-white shadow text-center'>
-        <div className='text-3xl ml-4'>Create an Event</div>
+    <div className='bg-gray-100 p-4'>
+      <div className=' bg-white shadow text-center'>
+        <div className='text-xl p-4'>Create an Event</div>
       </div>
-      <div className='p-4'>
+      <div className='mt-2'>
         <CreateEventForm 
           onSubmit={submitNewEvent}
         />

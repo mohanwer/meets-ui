@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { EditButton } from '../../../icons/EditButton';
-import { PersonalComponent } from '../../../../auth/PersonalComponent';
+import { VisibleIfUserIsOwner } from '../../../../auth/VisibleIfUserIsOwner';
 import { DeleteButton } from '../../../icons/DeleteButton';
 
 export interface CommentProps {
@@ -24,7 +24,7 @@ export const Comment = (props: CommentProps) => {
         <div className='font-bold text-sm'>{props.createdBy.displayName} 
           <span className='text-gray-500'> {new Date(props.modifiedDate).toLocaleDateString()}</span>
         </div>
-        <PersonalComponent userId={props.createdBy.id}>
+        <VisibleIfUserIsOwner userId={props.createdBy.id}>
           <div className='ml-2 flex content-center flex-wrap'>
             <EditButton onClick={() => setUpdateBoxVisibility(true)} />
             <div className='ml-2'>
@@ -35,7 +35,7 @@ export const Comment = (props: CommentProps) => {
               />
             </div>
           </div>
-        </PersonalComponent>
+        </VisibleIfUserIsOwner>
       </div>
       {(isUpdateBoxVisible ? 
         <UpdateComment 

@@ -26,6 +26,13 @@ const EventPageFragment = gql`
         displayName
       }
     }
+    attendees {
+      id
+      attendee {
+        displayName
+        id
+      }
+    }
     createdBy {
       id
       displayName
@@ -115,5 +122,33 @@ export const SEARCH_EVENTS = gql`
         lon
       }
     }
+  }
+`
+
+export const UPDATE_USER = gql`
+  mutation UpdateUser($email: String!, $displayName: String!) {
+    updateUser(email: $email, displayName: $displayName) {
+      id
+      displayName
+      email
+    }
+  }
+`
+
+export const ATTEND_EVENT = gql`
+  mutation AddAttendee($eventId: String!) {
+    addAttendee(eventId: $eventId) {
+      id
+      attendee {
+        displayName
+        id
+      }
+    }
+  }
+`
+
+export const REMOVE_ATTENDANCE = gql`
+  mutation deleteAttendee($registrationId: String!) {
+    deleteAttendee(registrationId: $registrationId)
   }
 `

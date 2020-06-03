@@ -23,7 +23,7 @@ export const SearchBox = ({onSubmit}: {onSubmit(searchParams: SearchParams): voi
   
   return(
     <div className='w-full p-6 rounded shadow bg-white'>
-      <div className='md:flex'>
+      <div className='md:flex md:flex-grow'>
         <div className='md:w-1/6'>
           <label className='form-label'>
             Description
@@ -75,8 +75,8 @@ export const SearchBox = ({onSubmit}: {onSubmit(searchParams: SearchParams): voi
             }}
           >
             <option value={50}>50 miles</option>
-            <option value={100}>50 miles</option>
-            <option value={250}>50 miles</option>
+            <option value={100}>100 miles</option>
+            <option value={250}>250 miles</option>
           </select>
         </div>
       </div>
