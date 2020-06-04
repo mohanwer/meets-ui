@@ -11,7 +11,7 @@ export const formatDate = (dateToFormat: Date): string => {
 export const EventCard = (props: EventSearchResponse) => (
   <Link to={`/Event?id=${props.id}`}>
     <div
-      className="max-w-sm shadow rounded flex content-between flex-wrap bg-white h-48 p-6"
+      className="md:max-w-sm shadow rounded flex content-between flex-wrap bg-white h-48 p-6"
     >
       <div>
         <div className="font-bold text-lg">
