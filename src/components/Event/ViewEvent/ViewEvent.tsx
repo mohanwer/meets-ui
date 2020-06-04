@@ -12,12 +12,10 @@ import {
 } from '../../../services/apollo/queries'
 import { Event as EventType, EventComment, Registration } from '../../../services/apollo/interfaces'
 import { Marker } from './Map/Marker'
-import { Comments } from './Comments/Comments'
-import { CommentProps, UpdateComment } from './Comments/Comment'
-import { CreateCommentTextBox } from './Comments/CreateCommentTextBox'
-import { VisibleIfUserIsSignedIn } from '../../../auth/VisibleIfUserIsSignedIn'
-import { Attendees } from './Attendees/Attendees'
-import { AttendBtn } from './Attendees/AttendBtn'
+import { Comments, CreateCommentTextBox } from './Comments'
+import { CommentProps } from './Comments/Comment'
+import { VisibleIfUserIsSignedIn, VisibleIfUserIsOwner } from '../../Security'
+import { Attendees, AttendBtn } from './Attendees'
 
 const useUrlQuery = () => new URLSearchParams(useLocation().search)
 
@@ -126,7 +124,7 @@ export const ViewEvent = () => {
         query: GET_EVENT_BY_ID,
         variables: { id: eventId },
       })
-      const idx = event.attendees.findIndex((c: EventComment) => c.id === deleteAttendee.id)
+      const idx = event.attendees.findIndex((c: Registration) => c.id === deleteAttendee.id)
       event.attendees.splice(idx, 1)
       cache.writeQuery({
         query: GET_EVENT_BY_ID,
@@ -165,14 +163,14 @@ export const ViewEvent = () => {
         <div className="text-lg text-gray-700 italic">{formattedEventDate}</div>
       </div>
       <div className="p-4">
-        <VisibleIfUserIsSignedIn>
+        <VisibleIfUserIsOwner userId={event.createdBy.id}>
           <button
             className="btn-gray mb-2 mr-2"
             onClick={() => history.push(`/EditEvent?id=${eventId}`)}
           >
             Edit Event
           </button>
-        </VisibleIfUserIsSignedIn>
+        </VisibleIfUserIsOwner>
         <AttendBtn
           attendees={event.attendees}
           onAttendClick={async() => await attendEvent({ variables: { eventId: event.id } })}

@@ -1,8 +1,8 @@
 import React from 'react'
-import { useAuth0 } from './react-auth0-spa'
+import { useAuth0 } from '../../auth/react-auth0-spa'
 
 interface PersonalComponentProps {
-  userId?: string
+  userId: string
 }
 
 // Will only display children component passed to it if user is equal to the user passed in props.

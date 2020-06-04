@@ -1,8 +1,7 @@
 import React from 'react'
 import { FormikProps, Field, Form, withFormik, FormikErrors } from 'formik'
 import { Address } from './Address'
-import { GoogleAddress, EventData } from './interfaces'
-import { EventValues } from './interfaces'
+import { GoogleAddress, EventData, EventValues } from './interfaces'
 
 export const CreateEventForm = ({onSubmit}: {onSubmit: (eventInfo: EventData) => Promise<void>}) => {
   const CreateEventForm = withFormik<{}, EventValues>({

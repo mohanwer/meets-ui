@@ -18,6 +18,26 @@
   @apply block font-bold text-left mb-3 mx-3 mb-0 pr-4 uppercase;
 }
 
+.form-label-top {
+  @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2;
+}
+
+.form-input-bottom {
+  @apply appearance-none block w-4/5 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight;
+}
+
+.form-input-bottom:focus {
+  @apply outline-none bg-white border-gray-500 shadow;
+}
+
+.form-drop-down {
+  @apply block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight;
+}
+
+.form-drop-down:focus {
+  @apply outline-none bg-white border-gray-500 shadow;
+}
+
 .form-sub-text {
   @apply block text-gray-600 text-left mr-3;
 }
@@ -27,7 +47,7 @@
 }
 
 .form-text-input:focus {
-  @apply bg-white
+  @apply bg-white shadow;
 }
 
 .form-error {

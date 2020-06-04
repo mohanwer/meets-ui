@@ -15,7 +15,7 @@ Total : 36 files,  1492 codes, 44 comments, 215 blanks, all 1751 lines
 | [src/App.test.tsx](/src/App.test.tsx) | TypeScript React | 8 | 0 | 2 | 10 |
 | [src/App.tsx](/src/App.tsx) | TypeScript React | 65 | 3 | 11 | 79 |
 | [src/General.tsx](/src/General.tsx) | TypeScript React | 9 | 0 | 1 | 10 |
-| [src/auth/ProtectedRoute.tsx](/src/auth/ProtectedRoute.tsx) | TypeScript React | 12 | 0 | 1 | 13 |
+| [src/auth/ProtectedRoute.tsx](/src/components/Security/ProtectedRoute.tsx) | TypeScript React | 12 | 0 | 1 | 13 |
 | [src/auth/react-auth0-spa.tsx](/src/auth/react-auth0-spa.tsx) | TypeScript React | 115 | 0 | 25 | 140 |
 | [src/components/Event/CreateEvent/CreateEvent.tsx](/src/components/Event/CreateEvent/CreateEvent.tsx) | TypeScript React | 26 | 0 | 5 | 31 |
 | [src/components/Event/CreateEvent/CreateEventForm.tsx](/src/components/Event/CreateEvent/CreateEventForm.tsx) | TypeScript React | 143 | 0 | 6 | 149 |

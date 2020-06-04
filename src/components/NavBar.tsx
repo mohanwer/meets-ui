@@ -3,6 +3,7 @@ import { useAuth0 } from '../auth/react-auth0-spa';
 import { Link } from 'react-router-dom';
 import { TailwindMedia } from '../tailwind.media.config';
 import { client } from '../services/apollo/client';
+import {VisibleIfUserIsSignedIn} from './Security'
 
 const authBtnClass = "text-sm p-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white"
 const linkBtnClass = "md:inline-block block mt-4 mr-2 lg:mt-0 text-teal-200 hover:text-white"
@@ -39,12 +40,14 @@ export const NavBar : React.FC<{}> = (props) => {
   let links = (
     <>
       <div className="text-sm flex-grow">
-        <Link to='Home' href="#responsive-header" className={linkBtnClass}>
+        <Link to='' href="#responsive-header" className={linkBtnClass}>
           Home
         </Link>
-        <Link to='CreateEvent' href="#responseive-header" className={linkBtnClass}>
-          Create New Event
-        </Link>
+        <VisibleIfUserIsSignedIn>
+          <Link to='CreateEvent' href="#responseive-header" className={linkBtnClass}>
+            Create New Event
+          </Link>
+        </VisibleIfUserIsSignedIn>
       </div>
       <div className="float-right">
         {authBtn}

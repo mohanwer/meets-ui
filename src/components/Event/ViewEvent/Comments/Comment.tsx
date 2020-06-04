@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { EditButton } from '../../../icons/EditButton';
-import { VisibleIfUserIsOwner } from '../../../../auth/VisibleIfUserIsOwner';
-import { DeleteButton } from '../../../icons/DeleteButton';
+import { EditButton, DeleteButton } from '../../../Icons';
+import { VisibleIfUserIsOwner } from '../../../Security';
 
 export interface CommentProps {
   id: string
