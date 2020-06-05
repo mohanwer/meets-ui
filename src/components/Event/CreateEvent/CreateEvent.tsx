@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { CreateEventForm } from './CreateEventForm'
 import { useMutation } from '@apollo/react-hooks';
-import { ADD_EVENT } from '../../../services/apollo/queries';
-import { Event } from '../../../services/apollo/interfaces'
+import { ADD_EVENT } from '../../../dataServices/apollo/queries';
+import { Event } from '../../../dataServices/apollo/interfaces'
 import { EventData } from './interfaces';
 import { Redirect } from 'react-router';
 

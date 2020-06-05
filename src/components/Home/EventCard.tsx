@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { EventSearchResponse } from '../../services/apollo/interfaces';
+import { EventSearchResponse } from '../../dataServices/apollo/interfaces';
+import {ReactComponent as CalendarSvg} from '../../assets/calendar.svg'
+import { ReactComponent as UserSvg} from '../../assets/user.svg'
 
 export const formatDate = (dateToFormat: Date): string => {
   const date = new Date(dateToFormat)
-  const formattedDate = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`
+  const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   return formattedDate
 }
 
@@ -19,9 +21,18 @@ export const EventCard = (props: EventSearchResponse) => (
         </div>
         <div className="text-gray-700 text-base">{props.briefDescription}</div>
       </div>
-      <div>
-        <div className='text-gray-500 text-sm'>
+      <div className='flex text-blue-600 text-sm align-bottom w-full'>
+        <div className='mr-2'>
+          <CalendarSvg/>
+        </div>
+        <div className=' mr-4'>
           {formatDate(props.eventDate)}
+        </div>
+        <div className='mr-2'>
+          <UserSvg/>
+        </div>
+        <div className='text-blue-600 text-sm'>
+          {props.displayName}
         </div>
       </div>
     </div>

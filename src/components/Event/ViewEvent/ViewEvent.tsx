@@ -1,27 +1,31 @@
-import React from 'react'
-import { useLocation, useHistory } from 'react-router-dom'
-import { useQuery, useMutation } from '@apollo/react-hooks'
+import React, {useEffect} from 'react'
+import {useLocation, useHistory} from 'react-router-dom'
+import {useQuery, useMutation} from '@apollo/react-hooks'
 import GoogleMapReact from 'google-map-react'
 import {
   GET_EVENT_BY_ID,
-  ADD_EVENT_COMMENT,
-  UPDATE_EVENT_COMMENT,
-  DELETE_EVENT_COMMENT,
   ATTEND_EVENT,
   REMOVE_ATTENDANCE,
-} from '../../../services/apollo/queries'
-import { Event as EventType, EventComment, Registration } from '../../../services/apollo/interfaces'
-import { Marker } from './Map/Marker'
-import { Comments, CreateCommentTextBox } from './Comments'
-import { CommentProps } from './Comments/Comment'
-import { VisibleIfUserIsSignedIn, VisibleIfUserIsOwner } from '../../Security'
-import { Attendees, AttendBtn } from './Attendees'
+} from '../../../dataServices/apollo/queries'
+import {Event as EventType, EventComment, Registration} from '../../../dataServices/apollo/interfaces'
+import {Marker} from './Map/Marker'
+import {Comments, CreateCommentTextBox} from './Comments'
+import {CommentProps} from './Comments/Comment'
+import {VisibleIfUserIsSignedIn, VisibleIfUserIsOwner} from '../../Security'
+import {Attendees, AttendBtn} from './Attendees'
+import {
+  useAddCommentMutation,
+  useUpdateCommentMutation,
+  useDeleteCommentMutation
+} from '../../../dataServices/events/CommentMutations'
+import {useAddAttendeeMutation, useRemoveAttendeeMutation} from '../../../dataServices/events/AttendeeMutations'
+import {LoadingSpinner} from '../../General/LoadingSpinner'
 
 const useUrlQuery = () => new URLSearchParams(useLocation().search)
 
 export const formatDateTime = (dateToFormat: Date): string => {
   const date = new Date(dateToFormat)
-  const formattedDate = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()} @ ${date.getUTCHours()}:${date.getMinutes()}`
+  const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} @ ${date.getUTCHours()}:${date.getMinutes()}`
   return formattedDate
 }
 
@@ -45,108 +49,44 @@ export const mapCommentToCommentProps = (
 export const ViewEvent = () => {
   const history = useHistory()
   const urlQuery = useUrlQuery()
-  const eventId = urlQuery.get('id')
+  const eventId = urlQuery.get('id') ?? ''
 
-  const { loading, error, data, refetch } = useQuery<{ event: EventType }>(GET_EVENT_BY_ID, {
-    variables: { id: eventId },
+  const addCommentMutation = useAddCommentMutation(eventId)
+  const updateCommentMutation = useUpdateCommentMutation(eventId)
+  const deleteCommentMutation = useDeleteCommentMutation(eventId)
+  const addAttendeeMutation = useAddAttendeeMutation(eventId)
+  const removeAttendeeMutation = useRemoveAttendeeMutation(eventId)
+
+  const {loading, error, data, refetch} = useQuery<{ event: EventType }>(GET_EVENT_BY_ID, {
+    variables: {id: eventId},
   })
 
-  const [addCommentToEvent] = useMutation<{ addCommentToEvent: EventComment }>(ADD_EVENT_COMMENT, {
-    update(cache) {
-      const commentToAdd = arguments[1].data.addEventComment
-      const { event }: any = cache.readQuery<EventType>({
-        query: GET_EVENT_BY_ID,
-        variables: { id: eventId },
-      })
-      event.comments.push(commentToAdd)
-      cache.writeQuery({
-        query: GET_EVENT_BY_ID,
-        data: { event: event },
-      })
-      refetch()
-    },
-  })
+  const addCommentToEvent = async (commentTxt: string) => {
+    await addCommentMutation(commentTxt)
+    await refetch()
+  }
 
-  const [updateCommentInEvent] = useMutation<{ updateComment: EventComment }>(UPDATE_EVENT_COMMENT, {
-    update(cache) {
-      const updateEventComment = arguments[1].data.updateEventComment
-      const { event }: any = cache.readQuery({
-        query: GET_EVENT_BY_ID,
-        variables: { id: eventId },
-      })
-      const commentIdx = event.comments.findIndex((c: EventComment) => c.id === updateEventComment.id)
-      event.comments[commentIdx] = updateEventComment
-      cache.writeQuery({
-        query: GET_EVENT_BY_ID,
-        data: { event: event },
-      })
-      refetch()
-    },
-  })
+  const updateComment = async (id: string, commentTxt: string) => {
+    await updateCommentMutation(id, commentTxt)
+    await refetch()
+  }
 
-  const [deleteCommentMutation] = useMutation(DELETE_EVENT_COMMENT, {
-    update(cache, { data: { deleteCommentInEvent: deleteCommentInEvent } }) {
-      const deleteEventComment = arguments[1].data.deleteEventComment
-      const { event }: any = cache.readQuery({
-        query: GET_EVENT_BY_ID,
-        variables: { id: eventId },
-      })
-      const commentIdx = event.comments.findIndex((c: EventComment) => c.id === deleteEventComment.id)
-      event.comments.splice(commentIdx, 1)
-      cache.writeQuery({
-        query: GET_EVENT_BY_ID,
-        data: { event: event },
-      })
-      refetch()
-    },
-  })
+  const deleteComment = async(id: string) => {
+    await deleteCommentMutation(id)
+    await refetch()
+  }
 
-  const [attendEvent] = useMutation<{ attendEvent: Registration }>(ATTEND_EVENT, {
-    update(cache) {
-      const updatedAttendee = arguments[1].data.addAttendee
-      const { event }: any = cache.readQuery<EventType>({
-        query: GET_EVENT_BY_ID,
-        variables: { id: eventId },
-      })
-      event.attendees.push(updatedAttendee)
-      cache.writeQuery({
-        query: GET_EVENT_BY_ID,
-        data: { event: event },
-      })
-      refetch()
-    },
-  })
+  const addAttendee = async() => {
+    await addAttendeeMutation()
+    await refetch()
+  }
 
-  const [deleteAttendee] = useMutation(REMOVE_ATTENDANCE, {
-    update(cache) {
-      const deleteAttendee = arguments[1].data.deleteAttendee
-      const { event }: any = cache.readQuery({
-        query: GET_EVENT_BY_ID,
-        variables: { id: eventId },
-      })
-      const idx = event.attendees.findIndex((c: Registration) => c.id === deleteAttendee.id)
-      event.attendees.splice(idx, 1)
-      cache.writeQuery({
-        query: GET_EVENT_BY_ID,
-        data: { event: event },
-      })
-      refetch()
-    }
-  })
+  const removeAttendee = async(registrationId: string) => {
+    await removeAttendeeMutation(registrationId)
+    await refetch()
+  }
 
-  const updateComment = async (commentId: string, commentText: string) =>
-    await updateCommentInEvent({
-      variables: {
-        eventId: eventId,
-        commentId: commentId,
-        commentText: commentText,
-      },
-    })
-
-  const deleteComment = async (commentId: string) =>
-    await deleteCommentMutation({ variables: { eventCommentId: commentId } })
-
-  if (loading || !data) return <div>Loading...</div>
+  if (loading || !data) return <LoadingSpinner/>
   if (error) return <div>{`Error! ${error}`}</div>
 
   const event: EventType = data.event
@@ -173,8 +113,8 @@ export const ViewEvent = () => {
         </VisibleIfUserIsOwner>
         <AttendBtn
           attendees={event.attendees}
-          onAttendClick={async() => await attendEvent({ variables: { eventId: event.id } })}
-          onRemoveAttendanceClick={async(id) => await deleteAttendee({ variables: { registrationId: id } })}
+          onAttendClick={async () => await addAttendee()}
+          onRemoveAttendanceClick={async (id) => await removeAttendee(id)}
         />
         <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4">
           <div className="bg-white shadow p-2">
@@ -188,7 +128,7 @@ export const ViewEvent = () => {
               bootstrapURLKeys={{
                 key: process.env.REACT_APP_GOOGLE_MAPS_API_URL || 'missing',
               }}
-              center={{ lat: event.address.lat, lng: event.address.lng }}
+              center={{lat: event.address.lat, lng: event.address.lng}}
               zoom={15}
             >
               <Marker
@@ -200,19 +140,15 @@ export const ViewEvent = () => {
           </div>
         </div>
         <div className="pt-4">
-          <Attendees attendees={event?.attendees} />
+          <Attendees attendees={event?.attendees}/>
         </div>
         <div className="w-full pt-4">
           <VisibleIfUserIsSignedIn>
             <CreateCommentTextBox
-              onSubmit={async (commentText) =>
-                await addCommentToEvent({
-                  variables: { eventId: event.id, commentText: commentText },
-                })
-              }
+              onSubmit={async (commentText) => await addCommentToEvent(commentText)}
             />
           </VisibleIfUserIsSignedIn>
-          {commentList && <Comments comments={commentList} eventId={event.id} />}
+          {commentList && <Comments comments={commentList} eventId={event.id}/>}
         </div>
       </div>
     </div>

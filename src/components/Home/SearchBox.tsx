@@ -1,7 +1,10 @@
-import React, {useState} from 'react'
-import { SearchParams } from './Home'
+import React, {useEffect, useState} from 'react'
+import {EventCardGrid} from './EventCardGrid'
+import { LoadingSpinner } from '../General/LoadingSpinner'
+import {Search} from '../../dataServices/events/Search'
 
-export const SearchBox = ({onSubmit}: {onSubmit(searchParams: SearchParams): void}) => {
+export const SearchBox = () => {
+
   const [searchParams, setSearchParams] = useState({
     eventName: '',
     postal: '',
@@ -9,18 +12,14 @@ export const SearchBox = ({onSubmit}: {onSubmit(searchParams: SearchParams): voi
       distance: 50
     }
   })
+  const [submitted, setSubmitted] = useState(searchParams)
+  const [getData, {loading, data}] = Search(submitted)
+  useEffect(() => getData(), [submitted])
 
   const submit = () => {
-    const paramsToSend = {}
-    if (searchParams.eventName !== '')
-      Object.assign(paramsToSend, {eventName: searchParams.eventName})
-    if (searchParams.postal !== ''){
-      Object.assign(paramsToSend, {postal: searchParams.postal})
-      Object.assign(paramsToSend, {location:{distance:`${searchParams.location.distance}miles`}})
-    }
-    onSubmit(paramsToSend)
+    setSubmitted(searchParams)
   }
-  
+
   return(
     <div className='w-full p-6 rounded shadow bg-white'>
       <div className='md:flex md:flex-grow'>
@@ -84,14 +83,21 @@ export const SearchBox = ({onSubmit}: {onSubmit(searchParams: SearchParams): voi
           </div>
         </div>
       </div>
-      
       <button
         className='btn-gray'
         onClick={() => submit()}
       >
         Search
       </button>
-      
+      <div className='mt-2'>
+        {!loading && data ? (
+          <EventCardGrid
+            cardList={data.searchEvents}
+          />
+        ): (
+          <LoadingSpinner/>
+        )}
+      </div>
     </div>
   )
 }

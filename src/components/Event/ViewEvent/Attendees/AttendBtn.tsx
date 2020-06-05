@@ -1,6 +1,6 @@
 import React from 'react'
 import {useAuth0} from '../../../../auth/react-auth0-spa'
-import {Registration} from '../../../../services/apollo/interfaces'
+import {Registration} from '../../../../dataServices/apollo/interfaces'
 
 interface AttendanceBtnProps {
   attendees: Registration[] | undefined | null

@@ -6,8 +6,8 @@ import createAuth0Client, {
 } from '@auth0/auth0-spa-js'
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client'
 import { useMutation } from '@apollo/react-hooks';
-import { User } from '../services/apollo/interfaces';
-import { UPDATE_USER } from '../services/apollo/queries';
+import { User } from '../dataServices/apollo/interfaces';
+import { UPDATE_USER } from '../dataServices/apollo/queries';
 
 export interface Auth0RedirectState {
   targetUrl?: string
@@ -70,16 +70,18 @@ export const Auth0Provider = ({
         console.log(userProfile)
         setIsAuthenticated(true)
         setUser(userProfile)
-        const token = await auth0FromHook.getTokenSilently()
-        if (token) {
-          localStorage.setItem('token', token)
-          const { name, email } = userProfile
-          const variables = {email: email, displayName: name}
-          const context = {headers: { authorization: `bearer ${token}`}}
-          updateUser({variables: variables, context: context})
+        const assembleToken = localStorage.getItem('assemble-anywhere-token')
+        if (!assembleToken) {
+          const token = await auth0FromHook.getTokenSilently()
+          if (token) {
+            localStorage.setItem('assemble-anywhere-token', token)
+            const { name, email } = userProfile
+            const variables = {email: email, displayName: name}
+            const context = {headers: { authorization: `bearer ${token}`}}
+            updateUser({variables: variables, context: context})
+          }
         }
       }
-
       setIsInitializing(false)
     }
 
@@ -123,7 +125,7 @@ export const Auth0Provider = ({
 
   const logout = (options?: LogoutOptions) => {
     auth0Client!.logout(options)
-    localStorage.removeItem('token')
+    localStorage.removeItem('assemble-anywhere-token')
   }
     
 

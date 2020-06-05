@@ -8,7 +8,7 @@ import {ViewEvent, CreateEvent, EditEvent, Home} from './components'
 import { Auth0Provider } from './auth/react-auth0-spa';
 import {ProtectedRoute} from './components/Security'
 import { RedirectLoginResult } from '@auth0/auth0-spa-js'
-import { NavBar } from './components/NavBar'
+import { NavBar } from './components/General/NavBar'
 import './styles/index.css'
 import './App.css'
 

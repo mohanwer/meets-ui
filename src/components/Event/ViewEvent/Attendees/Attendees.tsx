@@ -1,5 +1,5 @@
 import React from 'react';
-import { Registration } from '../../../../services/apollo/interfaces';
+import { Registration } from '../../../../dataServices/apollo/interfaces';
 
 export const Attendees = ({attendees}: {attendees: Registration[] | null | undefined}) => {
   if (!attendees || attendees?.length == 0)
