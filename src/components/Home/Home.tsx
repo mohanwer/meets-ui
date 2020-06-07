@@ -7,8 +7,8 @@ import calendarpng from '../../assets/calendar.png'
 export const Home = () => { 
 
   return(
-    <div className=''>
-      <div className="outer-spacing-top inner-spacing flex flex-col justify-center">
+    <>
+      <div className="inner-spacing flex flex-col justify-center">
         <div className='bg-pink-200 rounded shadow inner-spacing outer-spacing-bottom outer-spacing-top text-gray-700 text-center'>
           This is a development site so features are still being worked on.
         </div>
@@ -53,6 +53,6 @@ export const Home = () => {
         </div>
         <SearchBox />
       </div>
-    </div>
+    </>
   )
 }

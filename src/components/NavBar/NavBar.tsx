@@ -19,7 +19,7 @@ export const SignInBtn = (loginWithRedirect: () => void) =>
       Sign In
     </button>
 
-export const NavBar : React.FC<{}> = (props) => {
+export const NavBar : React.FC = (props) => {
   const [isLinkMenuVisible, setLinkMenuVisibility] = useState(false)
   const [width, setWidth] = useState(window.innerWidth)
 
@@ -33,7 +33,7 @@ export const NavBar : React.FC<{}> = (props) => {
 
   return (
     <>
-      <nav className="flex items-center justify-between flex-wrap bg-blue-900 p-2">
+      <nav className="flex items-center justify-between flex-wrap bg-blue-900 inner-spacing">
         <div className="flex items-center flex-shrink-0 text-white mr-6 ">
           <span className="font-semibold text-xl italic tracking-tight">
             Assemble Anywhere
