@@ -16,6 +16,7 @@ export interface EventValues {
   name: string,
   briefDescription: string,
   longDescription: string,
+  eventDate: Date | null,
   address1: string,
   address2: string,
   city: string,
@@ -29,7 +30,7 @@ export interface EventData {
   name: string
   briefDescription: string
   longDescription: string
-  eventDate: Date
+  eventDate: Date | null,
   address: {
     addr1: string
     addr2: string

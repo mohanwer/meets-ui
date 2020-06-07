@@ -8,24 +8,29 @@ export const Home = () => {
 
   return(
     <div className=''>
-      <div className="px-8 pt-2 flex flex-col justify-center">
-        <div className="text-center pb-2">
+      <div className="outer-spacing-top inner-spacing flex flex-col justify-center">
+        <div className='bg-pink-200 rounded shadow inner-spacing outer-spacing-bottom outer-spacing-top text-gray-700 text-center'>
+          This is a development site so features are still being worked on.
         </div>
-        <div className='bg-pink-200 rounded shadow mb-2 p-2 text-gray-700 text-center'>
-          This is a development site so the features are still being worked on.
-        </div>
-        <div className="self-center bg-white rounded w-full shadow p-2 mb-2">
+        <div className="self-center bg-white rounded w-full shadow inner-spacing outer-spacing-bottom">
           <div className='text-center text-lg font-bold'>
             Welcome to AssembleAnywhere!
 
           </div>
           <div className='text-center text-gray-700'>
-            Schedule or Attend an event
+            Schedule or attend an event
+          </div>
+          <div className='text-center text-gray-600 mt-2'>
+            <span>Upcoming features:</span>
+            <ol className='list-disc'>
+              <li>Group creation.</li>
+              <li>Adding sponsors to events.</li>
+              <li>Event permissions that allow anonymous attendees / event authors.</li>
+            </ol>
           </div>
         </div>
-
-        <div className="self-center bg-blue-900 rounded w-full shadow p-2 mb-2">
-          <div className='pt-4 font-bold text-lg text-blue-300 text-center'>
+        <div className="self-center bg-gray-800 rounded w-full shadow inner-spacing outer-spacing-bottom">
+          <div className='font-bold text-lg text-blue-300 text-center'>
             How it works:
           </div>
           <div className='flex justify-center pt-4'>
@@ -46,7 +51,6 @@ export const Home = () => {
             Login to unlock all features of the site
           </div>
         </div>
-
         <SearchBox />
       </div>
     </div>

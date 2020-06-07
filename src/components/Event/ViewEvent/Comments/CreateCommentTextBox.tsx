@@ -16,13 +16,13 @@ export const CreateCommentTextBox = ({onSubmit}: CreateCommentTextBoxProps) => {
     <>
       <div className='shadow'>
         <textarea 
-          className='w-full p-2'
+          className='w-full inner-spacing'
           onChange={e => onInputChange(e)}
           value={userInput.text}
         />
       </div>
       <button 
-        className='btn-gray'
+        className='btn-gray outer-spacing-top'
         disabled={userInput.disableInput}
         onClick={async() => {
           await onSubmit(userInput.text)

@@ -54,4 +54,16 @@
   @apply text-red-500 italic text-sm
 }
 
+.inner-spacing {
+  @apply p-4
+}
+
+.outer-spacing-bottom {
+  @apply mb-4
+}
+
+.outer-spacing-top {
+  @apply mt-4
+}
+
 @tailwind utilities;

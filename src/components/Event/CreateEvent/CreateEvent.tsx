@@ -5,16 +5,20 @@ import { ADD_EVENT } from '../../../dataServices/apollo/queries';
 import { Event } from '../../../dataServices/apollo/interfaces'
 import { EventData } from './interfaces';
 import { Redirect } from 'react-router';
+import {LoadingSpinner} from "../../General/LoadingSpinner";
 
 export const CreateEvent = () => {
   const [isGoogleDoneLoading, setGoogleDone] = useState(false)
   const [eventCreationStatus, setEventCreationStatus] = useState({eventCreationComplete: false, eventId: ''})
+  const [addingEvent, setAddingEvent] = useState(false)
   const [addEvent] = useMutation<{addEvent: Event}>(ADD_EVENT)
 
   const submitNewEvent = async(eventDetails: EventData) => {
+    setAddingEvent(true)
     const result = await addEvent({variables: {eventData: eventDetails}})
     const newEventId = result?.data?.addEvent?.id || ''
-    setEventCreationStatus({eventCreationComplete: true, eventId: newEventId})
+    await setEventCreationStatus({eventCreationComplete: true, eventId: newEventId})
+    setAddingEvent(false)
   }
 
   useEffect(() => {
@@ -24,8 +28,8 @@ export const CreateEvent = () => {
 
   if (eventCreationStatus.eventCreationComplete)
     return <Redirect to={`/Event?id=${eventCreationStatus.eventId}`} />
-  if (!isGoogleDoneLoading)
-    return <div>Loading...</div> 
+  if (!isGoogleDoneLoading || addingEvent)
+    return <LoadingSpinner/>
     
   return (
     <div className='bg-gray-100 p-4'>

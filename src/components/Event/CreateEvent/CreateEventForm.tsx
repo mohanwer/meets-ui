@@ -1,7 +1,9 @@
 import React from 'react'
-import { FormikProps, Field, Form, withFormik, FormikErrors } from 'formik'
+import {FormikProps, Field, Form, withFormik, FormikErrors, useField} from 'formik'
 import { Address } from './Address'
+import DatePicker from "react-datepicker"
 import { GoogleAddress, EventData, EventValues } from './interfaces'
+import "react-datepicker/dist/react-datepicker.css";
 
 export const CreateEventForm = ({onSubmit}: {onSubmit: (eventInfo: EventData) => Promise<void>}) => {
   const CreateEventForm = withFormik<{}, EventValues>({
@@ -10,7 +12,7 @@ export const CreateEventForm = ({onSubmit}: {onSubmit: (eventInfo: EventData) =>
         name: values.name,
         briefDescription: values.briefDescription,
         longDescription: values.longDescription,
-        eventDate: new Date(),
+        eventDate: values.eventDate,
         address: {
           addr1: values.address1,
           addr2: values.address2,
@@ -32,6 +34,8 @@ export const CreateEventForm = ({onSubmit}: {onSubmit: (eventInfo: EventData) =>
         errors.briefDescription = 'Required';
       if (!values.address1)
         errors.address1 = 'Required'
+      if (!values.eventDate)
+        errors.eventDate = 'Required'
       return errors;
     },
     mapPropsToValues: props => {
@@ -39,6 +43,7 @@ export const CreateEventForm = ({onSubmit}: {onSubmit: (eventInfo: EventData) =>
         name: '',
         briefDescription: '',
         longDescription: '',
+        eventDate: null,
         address1: '',
         address2: '',
         city: '',
@@ -105,6 +110,24 @@ export const EventFormFields = (props: FormikProps<EventValues>) => {
               className='form-text-input border'
               addressChange={(place) => setAddress(place)}
             />
+          </div>
+        </div>
+
+        <div className='md:flex mb-6'>
+          <div className='md:w-1/3'>
+            <label className='form-label'>Date of event:</label>
+          </div>
+          <div className='md:w-2/3 '>
+              <DatePicker
+                onChange={(val) => {
+                  props.setFieldValue('eventDate', val)
+                }}
+                className='form-text-input border'
+                showTimeSelect
+                dateFormat="MMMM d, yyyy h:mm aa"
+                selected={props.getFieldProps('eventDate').value}
+              />
+              {touched.eventDate && errors.eventDate && <div className='form-error'>{errors.eventDate}</div>}
           </div>
         </div>
 

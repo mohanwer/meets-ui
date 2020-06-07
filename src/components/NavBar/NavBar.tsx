@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useAuth0 } from '../../auth/react-auth0-spa';
-import { Link } from 'react-router-dom';
 import { TailwindMedia } from '../../tailwind.media.config';
-import { client } from '../../dataServices/apollo/client';
-import {VisibleIfUserIsSignedIn} from '../Security'
-
-const authBtnClass = "text-sm p-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white"
-const linkBtnClass = "md:inline-block block mt-4 mr-2 lg:mt-0 text-teal-200 hover:text-white"
+import { NavLinks } from './NavLinks'
+const authBtnClass = "text-sm p-2 leading-none border rounded text-blue-300 border-blue-300 hover:border-transparent hover:text-teal-500 hover:bg-white"
 
 export const SignOutBtn = (logout: () => void) => 
   <button
@@ -24,47 +19,18 @@ export const SignInBtn = (loginWithRedirect: () => void) =>
       Sign In
     </button>
 
-
 export const NavBar : React.FC<{}> = (props) => {
-  const {isAuthenticated, isInitializing, loginWithRedirect, logout} = useAuth0()
   const [isLinkMenuVisible, setLinkMenuVisibility] = useState(false)
   const [width, setWidth] = useState(window.innerWidth)
-  
-  const signOutAndClearCache = () => {
-    client.resetStore()
-    logout()
-  }
-
-  const authBtn = isAuthenticated ? SignOutBtn(signOutAndClearCache) : SignInBtn(loginWithRedirect)
-
-  let links = (
-    <>
-      <div className="text-sm flex-grow">
-        <Link to='' href="#responsive-header" className={linkBtnClass}>
-          Home
-        </Link>
-        <VisibleIfUserIsSignedIn>
-          <Link to='CreateEvent' href="#responseive-header" className={linkBtnClass}>
-            Create New Event
-          </Link>
-        </VisibleIfUserIsSignedIn>
-      </div>
-      <div className="float-right">
-        {authBtn}
-      </div>
-    </>
-  )
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth)
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize);
-    } 
+    }
   })
 
-  if (isInitializing) return <div>...Loading</div>
-  
   return (
     <>
       <nav className="flex items-center justify-between flex-wrap bg-blue-900 p-2">
@@ -76,7 +42,7 @@ export const NavBar : React.FC<{}> = (props) => {
         <>
           {width > TailwindMedia.sm ? (
             <div className="sm:flex-grow sm:flex sm:items-center sm:w-auto">
-              {links}
+              <NavLinks/>
             </div>
           ) : (
             <>
@@ -97,7 +63,7 @@ export const NavBar : React.FC<{}> = (props) => {
               </div>
               {isLinkMenuVisible && (
                 <div className="w-full">
-                  {links}
+                  <NavLinks/>
                 </div>
               )}
             </>

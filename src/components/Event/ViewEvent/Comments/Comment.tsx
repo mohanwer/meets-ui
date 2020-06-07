@@ -18,7 +18,7 @@ export interface CommentProps {
 export const Comment = (props: CommentProps) => {
   const [isUpdateBoxVisible, setUpdateBoxVisibility] = useState(false)
   return (
-    <div className='p-2 mt-2 mb-2 border-1 bg-white shadow'>
+    <div className='inner-spacing outer-spacing-top border-1 bg-white shadow'>
       <div className='flex'>
         <div className='font-bold text-sm'>{props.createdBy.displayName} 
           <span className='text-gray-500'> {new Date(props.modifiedDate).toLocaleDateString()}</span>

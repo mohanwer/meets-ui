@@ -4,10 +4,8 @@ import {useQuery, useMutation} from '@apollo/react-hooks'
 import GoogleMapReact from 'google-map-react'
 import {
   GET_EVENT_BY_ID,
-  ATTEND_EVENT,
-  REMOVE_ATTENDANCE,
 } from '../../../dataServices/apollo/queries'
-import {Event as EventType, EventComment, Registration} from '../../../dataServices/apollo/interfaces'
+import {Event as EventType, EventComment} from '../../../dataServices/apollo/interfaces'
 import {Marker} from './Map/Marker'
 import {Comments, CreateCommentTextBox} from './Comments'
 import {CommentProps} from './Comments/Comment'
@@ -95,32 +93,34 @@ export const ViewEvent = () => {
 
   return (
     <div className="w-full bg-gray-100 text-left">
-      <div className="border-b-2 bg-white shadow text-center">
-        <div className="text-3xl ml-4">{event.name}</div>
-        <div className="text-xl ml-4">
-          Hosted by: <span className="bold capitalize">{event.createdBy.displayName}</span>
+      <div className="bg-gray-800 shadow text-center inner-spacing">
+        <div className="text-3xl ml-4 text-blue-300">{event.name}</div>
+        <div className="text-xl ml-4 text-white">
+          Hosted by: <span className="bold capitalize text-white">{event.createdBy.displayName}</span>
         </div>
-        <div className="text-lg text-gray-700 italic">{formattedEventDate}</div>
+        <div className="text-lg italic text-white">{formattedEventDate}</div>
       </div>
-      <div className="p-4">
-        <VisibleIfUserIsOwner userId={event.createdBy.id}>
-          <button
-            className="btn-gray mb-2 mr-2"
-            onClick={() => history.push(`/EditEvent?id=${eventId}`)}
-          >
-            Edit Event
-          </button>
-        </VisibleIfUserIsOwner>
-        <AttendBtn
-          attendees={event.attendees}
-          onAttendClick={async () => await addAttendee()}
-          onRemoveAttendanceClick={async (id) => await removeAttendee(id)}
-        />
+      <div className="inner-spacing">
+        <div className='outer-spacing-bottom'>
+          <VisibleIfUserIsOwner userId={event.createdBy.id}>
+            <button
+              className="btn-gray mr-2"
+              onClick={() => history.push(`/EditEvent?id=${eventId}`)}
+            >
+              Edit Event
+            </button>
+          </VisibleIfUserIsOwner>
+          <AttendBtn
+            attendees={event.attendees}
+            onAttendClick={async () => await addAttendee()}
+            onRemoveAttendanceClick={async (id) => await removeAttendee(id)}
+          />
+        </div>
         <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4">
-          <div className="bg-white shadow p-2">
+          <div className="bg-white shadow inner-spacing">
             <div className="text-xl font-bold">Details</div>
             <p>{event.longDescription}</p>
-            <div className='text-xl font-bold mt-4'>Address</div>
+            <div className='text-xl font-bold outer-spacing-top'>Address</div>
             <div>{event.address.addr1}, {event.address.city}, {event.address.state}</div>
           </div>
           <div className="h-56 shadow rounded-lg">
@@ -139,10 +139,10 @@ export const ViewEvent = () => {
             </GoogleMapReact>
           </div>
         </div>
-        <div className="pt-4">
+        <div className="outer-spacing-top">
           <Attendees attendees={event?.attendees}/>
         </div>
-        <div className="w-full pt-4">
+        <div className="w-full outer-spacing-top">
           <VisibleIfUserIsSignedIn>
             <CreateCommentTextBox
               onSubmit={async (commentText) => await addCommentToEvent(commentText)}

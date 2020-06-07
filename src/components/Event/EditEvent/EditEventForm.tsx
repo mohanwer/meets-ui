@@ -15,6 +15,7 @@ export const EditEventForm = ({initialValues, onSubmit}: EditEventFormProps) => 
     name: initialValues.name,
     briefDescription: initialValues.briefDescription,
     longDescription: initialValues.longDescription,
+    eventDate: new Date(initialValues.eventDate),
     address1: address.addr1,
     address2: address.addr2,
     city: address.city,
@@ -31,7 +32,7 @@ export const EditEventForm = ({initialValues, onSubmit}: EditEventFormProps) => 
           name: values.name,
           briefDescription: values.briefDescription,
           longDescription: values.longDescription,
-          eventDate: new Date(),
+          eventDate: values.eventDate,
           address: {
             addr1: values.address1,
             addr2: values.address2,
@@ -53,6 +54,8 @@ export const EditEventForm = ({initialValues, onSubmit}: EditEventFormProps) => 
           errors.briefDescription = 'Required';
         if (!values.address1)
           errors.address1 = 'Required'
+        if (!values.eventDate)
+          errors.eventDate = 'Required'
         return errors;
       }}
     >

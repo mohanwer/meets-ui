@@ -9,10 +9,6 @@ import { useMutation } from '@apollo/react-hooks';
 import { User } from '../dataServices/apollo/interfaces';
 import { UPDATE_USER } from '../dataServices/apollo/queries';
 
-export interface Auth0RedirectState {
-  targetUrl?: string
-}
-
 export interface Auth0User extends Omit<IdToken, '__raw'> {sub: string}
 
 interface Auth0Context {
@@ -34,7 +30,9 @@ interface Auth0ProviderOptions {
 }
 
 export const Auth0Context = React.createContext<Auth0Context | null>(null)
+
 export const useAuth0 = () => useContext(Auth0Context)!
+
 export const Auth0Provider = ({
   children,
   onRedirectCallback,
@@ -67,7 +65,6 @@ export const Auth0Provider = ({
 
       if (authed) {
         const userProfile = await auth0FromHook.getUser()
-        console.log(userProfile)
         setIsAuthenticated(true)
         setUser(userProfile)
         const assembleToken = localStorage.getItem('assemble-anywhere-token')
