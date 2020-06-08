@@ -18,13 +18,13 @@ import {
 } from '../../../dataServices/events/CommentMutations'
 import {useAddAttendeeMutation, useRemoveAttendeeMutation} from '../../../dataServices/events/AttendeeMutations'
 import {LoadingSpinner} from '../../General/LoadingSpinner'
+import { lightFormat } from 'date-fns'
 
 const useUrlQuery = () => new URLSearchParams(useLocation().search)
 
 export const formatDateTime = (dateToFormat: Date): string => {
   const date = new Date(dateToFormat)
-  const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} @ ${date.getUTCHours()}:${date.getMinutes()}`
-  return formattedDate
+  return lightFormat(date, 'MM/dd/yy HH:mm aaa')
 }
 
 export const mapCommentToCommentProps = (
@@ -94,7 +94,7 @@ export const ViewEvent = () => {
   return (
     <div className="w-full bg-gray-100 text-left">
       <div className="bg-gray-800 shadow text-center inner-spacing">
-        <div className="text-3xl ml-4 text-blue-300">{event.name}</div>
+        <div className="text-3xl ml-4 text-teal-200">{event.name}</div>
         <div className="text-xl ml-4 text-white">
           Hosted by: <span className="bold capitalize text-white">{event.createdBy.displayName}</span>
         </div>

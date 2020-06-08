@@ -3,13 +3,21 @@ import { Link } from 'react-router-dom'
 import { EventSearchResponse } from '../../dataServices/apollo/interfaces';
 import {ReactComponent as CalendarSvg} from '../../assets/calendar.svg'
 import { ReactComponent as UserSvg} from '../../assets/user.svg'
+import { lightFormat } from 'date-fns'
 
+/**
+ * Formats a date object into readable form.
+ * @param dateToFormat
+ */
 export const formatDate = (dateToFormat: Date): string => {
   const date = new Date(dateToFormat)
-  const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
-  return formattedDate
+  return lightFormat(date, 'MM/dd/yy HH:mm aaa')
 }
 
+/**
+ * Card for individual event. Primarily used on home page.
+ * @param props - id (eventId), name, eventDate, displayName
+ */
 export const EventCard = (props: EventSearchResponse) => (
   <Link to={`/Event?id=${props.id}`}>
     <div
@@ -25,13 +33,13 @@ export const EventCard = (props: EventSearchResponse) => (
         <div className='mr-2'>
           <CalendarSvg/>
         </div>
-        <div className=' mr-4'>
+        <div className='font-bold mr-4'>
           {formatDate(props.eventDate)}
         </div>
         <div className='mr-2'>
           <UserSvg/>
         </div>
-        <div className='text-blue-600 text-sm'>
+        <div className='text-blue-600 font-bold text-sm'>
           {props.displayName}
         </div>
       </div>

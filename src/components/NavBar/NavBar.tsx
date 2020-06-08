@@ -1,28 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { TailwindMedia } from '../../tailwind.media.config';
 import { NavLinks } from './NavLinks'
-const authBtnClass = "text-sm p-2 leading-none border rounded text-blue-300 border-blue-300 hover:border-transparent hover:text-teal-500 hover:bg-white"
 
-export const SignOutBtn = (logout: () => void) => 
-  <button
-    className={authBtnClass}
-    onClick={logout}
-  >
-    Log out
-  </button>
-
-export const SignInBtn = (loginWithRedirect: () => void) =>
-    <button
-      className={authBtnClass}
-      onClick={loginWithRedirect}
-    >
-      Sign In
-    </button>
-
-export const NavBar : React.FC = (props) => {
+/**
+ * Navigation bar for site. Has links for creating new event and login/logout pages.
+ * @param children - children components to wrap into nav.
+ */
+export const NavBar : React.FC = ({children}) => {
   const [isLinkMenuVisible, setLinkMenuVisibility] = useState(false)
   const [width, setWidth] = useState(window.innerWidth)
 
+  // Resizes navigation bar based on screen width.
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth)
     window.addEventListener('resize', handleResize)
@@ -71,7 +59,7 @@ export const NavBar : React.FC = (props) => {
         </>
       </nav>
       <div className='flex justify-center bg-gray-100 bg-cover'>
-        {props.children}
+        {children}
       </div>
     </>
   )

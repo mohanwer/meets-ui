@@ -1,6 +1,9 @@
 import React from 'react'
 import { ScaleLoader} from 'react-spinners'
 
+/**
+ * Component to display while waiting for requests.
+ */
 export const LoadingSpinner = () => (
   <div className='w-full '>
     <div className='flex justify-center'>

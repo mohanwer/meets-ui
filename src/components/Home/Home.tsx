@@ -7,12 +7,12 @@ export const Home = () => (
   <>
     <div className="inner-spacing flex flex-col justify-center">
       <div
-        className='bg-pink-200 rounded shadow inner-spacing outer-spacing-bottom outer-spacing-top text-gray-700 text-center'>
+        className='bg-pink-200 rounded shadow inner-spacing outer-spacing-bottom text-gray-700 text-center'>
         This is a development site so features are still being worked on.
       </div>
       <div className="self-center bg-white rounded w-full shadow inner-spacing outer-spacing-bottom">
         <div className='text-center text-lg font-bold'>
-          Welcome to AssembleAnywhere!
+          Welcome to Assemble Anywhere!
 
         </div>
         <div className='text-center text-gray-700'>
