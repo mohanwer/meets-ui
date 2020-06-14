@@ -1,4 +1,4 @@
-# Meets-ui
+# meets-ui
 A UI application for creating and registering for events (similar to meetup.com). For a sample version of this running application visit https://dev.assembleanywhere.com.
 
 In order to run this application the env file must be configured. You'll need your own google maps api url. The remaining variables listed here can be used for development purposes:
