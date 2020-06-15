@@ -25,5 +25,6 @@ All api calls are written in the [dataServices folder](https://github.com/mohanw
 
 The components folder has all react components order by the page they are used on. The [security](https://github.com/mohanwer/meets-ui/tree/master/src/components/Security) folder has components that work with authentication to make certain components visible or invisible depending on if the user is authenticated.
 
-To run the app:
+
+# To run the app:
 `npm start`
