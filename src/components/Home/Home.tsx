@@ -20,11 +20,11 @@ export const Home = () => (
         </div>
         <div className='text-center text-gray-600 mt-2'>
           <span>Upcoming features:</span>
-          <ol className='list-disc'>
+          <ul>
             <li>Group creation.</li>
             <li>Adding sponsors to events.</li>
             <li>Event permissions that allow anonymous attendees / event authors.</li>
-          </ol>
+          </ul>
         </div>
       </div>
       <div className="self-center bg-gray-800 rounded w-full shadow inner-spacing outer-spacing-bottom">
